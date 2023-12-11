@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, ChangeEvent } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { auth } from "@/app/firebase/config";
+import { auth } from "@/app/(firebase)/config";
 import { useRouter } from "next/navigation";
 
 interface SignInProps {}
@@ -12,7 +12,6 @@ const SignIn: React.FC<SignInProps> = () => {
 
   const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
   const router = useRouter();
-
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -26,10 +25,10 @@ const SignIn: React.FC<SignInProps> = () => {
     try {
       const res = await signInWithEmailAndPassword(email, password);
       console.log(res);
-      sessionStorage.setItem('user', String(true));
+      sessionStorage.setItem("user", String(true));
       setEmail("");
       setPassword("");
-      router.push('/');
+      router.push("/");
     } catch (error) {
       console.log(error);
     }
@@ -37,7 +36,7 @@ const SignIn: React.FC<SignInProps> = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-500">
-      <div className="bg-white p-8 rounded-md shadow-md w-96">
+      <div className="bg-white p-8 rounded-xl shadow-md w-96">
         <h1 className="text-2xl font-semibold text-gray-900 mb-6">Sign In</h1>
 
         <form className="mb-4">
@@ -67,8 +66,9 @@ const SignIn: React.FC<SignInProps> = () => {
           />
         </form>
 
+        <p>Don't have an account? <a href="/Register" className="text-grey-600 font-bold cursor-pointer hover:text-blue-900">Register Here!</a></p>
         <button
-          className="w-full bg-blue-500 text-white py-2 rounded-lg animate-pulse hover:bg-blue-600 transition-all"
+          className="w-full mt-3 bg-blue-500 text-white py-2 rounded-lg animate-pulse hover:bg-blue-600 transition-all"
           onClick={handleSignIn}
         >
           Sign In

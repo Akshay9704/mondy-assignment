@@ -1,21 +1,15 @@
 "use client";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "@/app/firebase/config";
+import { auth } from "@/app/(firebase)/config";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 export default function Home() {
-  const [darkMode, setDarkMode] = useState(false);
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
   const [user] = useAuthState(auth);
   const router = useRouter();
-  const userSession = sessionStorage.getItem('user');
 
   useEffect(() => {
-    if (!user && !userSession) {
+    if (!user && typeof window !== 'undefined' && !sessionStorage.getItem('user')) {
       router.push("/login");
     }
   }, [user]);

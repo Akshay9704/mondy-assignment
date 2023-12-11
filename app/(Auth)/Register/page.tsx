@@ -1,7 +1,7 @@
-"use client";
+"use client"
 import React, { useState, ChangeEvent } from "react";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { auth } from "@/app/firebase/config";
+import { auth } from "@/app/(firebase)/config";
 
 interface SignUpProps {}
 
@@ -24,17 +24,17 @@ const SignUp: React.FC<SignUpProps> = () => {
     try {
       const res = await createUserWithEmailAndPassword(email, password);
       console.log(res);
-      sessionStorage.setItem('user', String(true));
+      sessionStorage.setItem("user", String(true));
       setEmail("");
       setPassword("");
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-500">
-      <div className="bg-white p-8 rounded-md shadow-md w-96">
+      <div className="bg-white p-8 rounded-xl shadow-md w-96">
         <h1 className="text-2xl font-semibold text-gray-900 mb-6">Sign Up</h1>
 
         <form className="mb-4">
@@ -50,6 +50,7 @@ const SignUp: React.FC<SignUpProps> = () => {
             onChange={handleEmailChange}
           />
         </form>
+
         <form className="mb-4">
           <label htmlFor="password" className="text-gray-900 block mb-2">
             Password
@@ -64,8 +65,18 @@ const SignUp: React.FC<SignUpProps> = () => {
           />
         </form>
 
+        <p>
+          Already have an account?{" "}
+          <a
+            href="/login"
+            className="text-grey-600 font-bold cursor-pointer hover:text-blue-900"
+          >
+            Login Here!
+          </a>
+        </p>
+
         <button
-          className="w-full bg-blue-500 text-white py-2 rounded-lg animate-pulse hover:bg-blue-600 transition-all"
+          className="w-full mt-3 bg-blue-500 text-white py-2 rounded-lg animate-pulse hover:bg-blue-600 transition-all"
           onClick={handleSignUp}
         >
           Sign Up
